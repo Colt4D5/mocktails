@@ -1,0 +1,11 @@
+{
+  "name": "mocktails-project",
+  "version": "1.0.0",
+  "description": "A mockup of a website advertising Cocktails",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Colton Arthur Allen",
+  "license": "ISC"
+}

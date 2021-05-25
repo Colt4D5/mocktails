@@ -1,0 +1,19 @@
+header {
+  #hero {
+    background-image: url('../assets/hero.png');
+    background-position: center bottom;
+    background-size: cover;
+    height: 200px;
+  }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    background-color: $contrast1;
+
+    ul {
+      display: flex;
+      list-style: none;
+    }
+  }
+}
