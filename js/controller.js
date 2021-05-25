@@ -3,22 +3,20 @@ import View from './view.js';
 import Data from './model.js';
 
 // CONTROLLER
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
 	const view = new View();
 	const data = new Data();
 	
 	// GET PRODUCTS
-	data.getProducts(API_URL)
+	await data.getProducts(API_URL)
     .then(data => view.displayProducts(data))
-    .then(() => view.generatePageBtns(data.state));
-    // .then(products => {
-    //   console.log(products);
-		  // ui.displayProducts(products);
-	  // });
-	
+    .then(() => view.generatePageBtns(data.state))
+		// .then(btns => {
+		// 	console.log(btns);
+		// 	btns.forEach(btn => view.addEventListeners(btn));
+		// });
+		// .then(btns => view.handlePageChange(btns));
+
 	// EVENT LISTENERS
-	// productsContainer.addEventListener('click', ui.addToCart.bind(ui));
-	// cartDOM.addEventListener('click', ui.handleCartClick.bind(ui));
-	// cartBtn.addEventListener('click', ui.toggleCart);
-	// hamburger.addEventListener('click', () => menu.classList.toggle('hidden'));
+	document.querySelector('.drink-wrapper').addEventListener('click', data.changePage.bind(data));
 });

@@ -4,7 +4,7 @@ export default class Data {
 
   state = {
     data: null,
-    page: 3,
+    page: 2,
     totalPages: 1
   }
 
@@ -31,6 +31,18 @@ export default class Data {
     const results = this.state.data.slice(trimStart, trimEnd);
 
     return results;
+  }
+
+  changePage(e) {
+    const btn = e.target.closest('.page-btn');
+
+    if(!btn) return;
+
+    // console.log(typeof btn.dataset.turnPage, typeof this.state.page);
+
+    this.state.page += +btn.dataset.turnPage;
+
+    console.log(this.state.page);
   }
 
 }

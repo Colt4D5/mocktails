@@ -7,7 +7,7 @@
   - Route all requests to index.html and autoload routing classes
   - use controller to route based on url=parameters
 
-- Test API endpoints
+- Test API endpoints (https://www.thecocktaildb.com/api/json/v2/1/filter.php?c=Cocktail)
   - Create Controller class
     - instantiate Model class
     - send API_URL to model to fetch data
@@ -27,3 +27,4 @@
 - Create dynamic page buttons
   - Calculate # of pages
   - Create a web of if statements based on current page and total pages, then insert the coordinating buttons on the page
+  - Using button's dataset, increment or decrement the model's state.page
