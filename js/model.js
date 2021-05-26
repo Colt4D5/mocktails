@@ -1,25 +1,21 @@
 import { RES_PER_PAGE } from './config.js';
 
-export default class Data {
+class Data {
 
   state = {
-    data: null,
-    page: 2,
+    allData: null,
+    page: 1,
     totalPages: 1
   }
 
-  async getProducts(url) {
+  async loadResults(url, category) {
     try {
-      // console.log(url)
-      const res = await fetch(url);
+      const res = await fetch(url + category);
       if (!res) return new Error('Oops! Could not find your drinks.');
       const {drinks} = await res.json();
-      this.state.data = drinks;
-      this.state.totalPages = Math.ceil(this.state.data.length / RES_PER_PAGE);
-      console.log(this.state.totalPages);
-      const results = await this.pagination();
-      console.log(results);
-      return results;
+      this.state.allData = drinks;
+      this.state.totalPages = Math.ceil(this.state.allData.length / RES_PER_PAGE);
+      console.log(`Total Pages: ${this.state.totalPages}`);
     } catch (e) {
       console.error(`Oops! ${e.message}`);
     }
@@ -28,21 +24,16 @@ export default class Data {
   pagination() {
     const trimStart = (this.state.page - 1) * RES_PER_PAGE;
     const trimEnd = trimStart + RES_PER_PAGE;
-    const results = this.state.data.slice(trimStart, trimEnd);
+    const results = this.state.allData.slice(trimStart, trimEnd);
 
     return results;
   }
 
-  changePage(e) {
-    const btn = e.target.closest('.page-btn');
-
-    if(!btn) return;
-
-    // console.log(typeof btn.dataset.turnPage, typeof this.state.page);
-
-    this.state.page += +btn.dataset.turnPage;
-
-    console.log(this.state.page);
-  }
+  // changePage(val) {
+  //   this.state.page += val;
+  //   view.renderProducts(this.getProducts, API_URL);
+  // }
 
 }
+
+export default new Data();

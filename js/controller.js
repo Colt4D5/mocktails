@@ -1,22 +1,26 @@
 import { API_URL } from './config.js';
-import View from './view.js';
-import Data from './model.js';
+import view from './view.js';
+import model from './model.js';
+
+// const testCategory = 'Coffee / Tea';
 
 // CONTROLLER
 document.addEventListener('DOMContentLoaded', async () => {
-	const view = new View();
-	const data = new Data();
-	
-	// GET PRODUCTS
-	await data.getProducts(API_URL)
-    .then(data => view.displayProducts(data))
-    .then(() => view.generatePageBtns(data.state))
-		// .then(btns => {
-		// 	console.log(btns);
-		// 	btns.forEach(btn => view.addEventListeners(btn));
-		// });
-		// .then(btns => view.handlePageChange(btns));
+	// GET INITIAL PRODUCTS
+	const category = document.querySelector('#category-selector').value;
+
+	await model.loadResults(API_URL, category);
+
+	await view.renderResults(model.state);
 
 	// EVENT LISTENERS
-	document.querySelector('.drink-wrapper').addEventListener('click', data.changePage.bind(data));
+	document.querySelector('#category-selector').addEventListener('change', async (e) => {
+		const selection = e.target.value;
+
+		await model.loadResults(API_URL, selection);
+
+		model.state.page = 1;
+
+		await view.renderResults(model.state);
+	});
 });

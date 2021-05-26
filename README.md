@@ -28,3 +28,13 @@
   - Calculate # of pages
   - Create a web of if statements based on current page and total pages, then insert the coordinating buttons on the page
   - Using button's dataset, increment or decrement the model's state.page
+
+## Day 2
+
+- Completely refactored MVC to support pagination  :(
+  - Pagination is now a feature of the View instead of the Model... because I'm stupid, Idk
+    - To accomplish this, all the fetched data is stored in the View Class immediately after the initial fetch, and the pagination is handled internally instead of communicating with the Model (which was stupid). This allows for less behind-the-scenes work, as the data is already there and does not need to be refetched or resent
+- Created a dropdown selector to change categories
+  - Add an event listener to selector and console log the value of the change
+  - Pass the new value to the model to refetch data with new category
+  - send new state to the view for rendering
