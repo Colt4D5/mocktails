@@ -4,20 +4,166 @@
   box-sizing: border-box;
 }
 
+section {
+  padding: 3rem 0;
+  border-bottom: 1px solid #111;
+}
+section .section-heading {
+  width: 90%;
+  text-align: center;
+  padding: 0.8rem 0;
+  color: #fff;
+  margin: 0 auto;
+  background-color: #111;
+  box-shadow: 6px 4px 8px rgba(0, 0, 0, 0.4);
+}
+
 header #hero {
-  background-image: url("../assets/hero.png");
-  background-position: center bottom;
+  background-image: url("../assets/cocktail-glasses.jpg");
+  background-position: center;
   background-size: cover;
   height: 200px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+header #hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  width: 100%;
+  height: 100%;
+}
+header #hero .logo-link {
+  z-index: 10;
+}
+header #hero .logo-link .logo {
+  max-height: 125px;
 }
 header nav {
   display: flex;
   justify-content: center;
-  background-color: #ffce6b;
+  align-items: center;
+  background-color: #ccc;
+  height: 35px;
+  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.3);
 }
 header nav ul {
   display: flex;
   list-style: none;
+}
+header nav ul a {
+  font-family: "Josefin Sans", sans-serif;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.5rem;
+  margin: 0 0.5rem;
+  z-index: 2;
+  position: relative;
+}
+header nav ul a:hover::before {
+  width: 90%;
+}
+header nav ul a::before {
+  content: "";
+  width: 0;
+  height: 18px;
+  background-color: #f368a6;
+  position: absolute;
+  bottom: 4px;
+  left: -9px;
+  z-index: -1;
+  transition: width 0.5s ease;
+}
+
+#highlight-container {
+  margin: 4rem 0;
+}
+#highlight-container .img-highlight-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+#highlight-container .img-highlight-wrapper .img-highlight {
+  max-width: 100%;
+  height: 100%;
+}
+#highlight-container .img-highlight-wrapper .overlay-highlight {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  color: #fff;
+  border-radius: 20px 0 0 20px;
+  padding: 0 1rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  transform: translateX(105%);
+  transition: transform 0.3s ease;
+}
+#highlight-container .img-highlight-wrapper .overlay-highlight p {
+  margin-bottom: 0.85rem;
+  width: 100%;
+}
+#highlight-container .img-highlight-wrapper:hover .overlay-highlight {
+  transform: translateX(0);
+}
+#highlight-container .title-highlight {
+  margin-top: 2rem;
+  font-size: 1.75rem;
+  text-align: center;
+}
+
+.img-carousel-container {
+  border: 1px solid black;
+  width: 100%;
+  height: 400px;
+  position: relative;
+  margin: 2rem 0;
+}
+.img-carousel-container .fas {
+  font-size: 2.5rem;
+  color: rgba(0, 0, 0, 0.5);
+}
+.img-carousel-container .fa-chevron-left {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+}
+.img-carousel-container .fa-chevron-right {
+  position: absolute;
+  top: 50%;
+  right: 25px;
+  transform: translateY(-50%);
+}
+.img-carousel-container img {
+  width: 100%;
+}
+.img-carousel-container .img-dots {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+.img-carousel-container .img-dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.4);
+  margin: 0 0.5rem;
+}
+.img-carousel-container .img-dots .dot.active {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .drink-wrapper #drinks-container {
@@ -29,7 +175,7 @@ header nav ul {
 .drink-wrapper #drinks-container .card {
   width: 250px;
   height: 250px;
-  border-radius: 8px;
+  border-radius: 50%;
   margin: 1rem;
   overflow: hidden;
   position: relative;

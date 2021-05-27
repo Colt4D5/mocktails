@@ -1,5 +1,8 @@
 <?php 
 
+header('
+Access-Control-Allow-Origin: https://www.thecocktaildb.com/');
+
 spl_autoload_register('myAutoloader');
 
 function myAutoloader($className) {

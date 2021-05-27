@@ -38,3 +38,16 @@
   - Add an event listener to selector and console log the value of the change
   - Pass the new value to the model to refetch data with new category
   - send new state to the view for rendering
+
+## Day 3
+
+- Create design & layout in Figma
+- Refactor request for highlighted drink section
+  - Fetch Amaretto Sour by ID
+  - Create object literal of drink w/ necessary info
+  - Pass object to View where markup is generated and rendered in coresponding container
+- Starting with mobile design, begin building and styling mobile site.
+- Create drink of the week carousel
+  - Refactor fetch for drink of the week carousel and pass drinks to View for markup to be generated and rendered
+  - Design container with next and previous btns for carousel and active/inactive bubbles display
+  - (Finishing carousel tomorrow)

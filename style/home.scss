@@ -1,3 +1,104 @@
+#highlight-container {
+  margin: 4rem 0;
+
+  .img-highlight-wrapper {
+    position: relative;
+    overflow: hidden;
+
+    .img-highlight {
+      max-width: 100%;
+      height: 100%;
+    }
+
+    .overlay-highlight {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 250px;
+      height: 100%;
+      max-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: left;
+      color: #fff;
+      border-radius: 20px 0 0 20px;
+      padding: 0 1rem;
+      background-color: rgba(0,0,0,0.4);
+      transform: translateX(105%);
+      transition: transform 0.3s ease;
+
+      p {
+        margin-bottom: 0.85rem;
+        width: 100%;
+      }
+    }
+
+    &:hover .overlay-highlight {
+      transform: translateX(0);
+    }
+  }
+  .title-highlight {
+    margin-top: 2rem;
+    font-size: 1.75rem;
+    text-align: center;
+  }
+}
+
+
+.img-carousel-container {
+  border: 1px solid black;
+  width: 100%;
+  height: 400px;
+  position: relative;
+  margin: 2rem 0;
+
+  .fas {
+    font-size: 2.5rem;
+    color: rgba(0,0,0,0.5);
+  }
+
+  .fa-chevron-left {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+  }
+
+  .fa-chevron-right {
+    position: absolute;
+    top: 50%;
+    right: 25px;
+    transform: translateY(-50%);
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .img-dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: rgba(0,0,0,0.4);
+      margin: 0 0.5rem;
+
+      &.active {
+        background-color: rgba(0,0,0,0.1);
+      }
+    }
+  }
+}
+
+
 .drink-wrapper {
   #drinks-container {
     display: flex;
@@ -8,7 +109,7 @@
     .card {
       width: 250px;
       height: 250px;
-      border-radius: 8px;
+      border-radius: 50%;
       margin: 1rem;
       overflow: hidden;
       position: relative;

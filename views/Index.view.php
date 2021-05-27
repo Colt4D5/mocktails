@@ -1,4 +1,37 @@
-<h1>Home Index</h1>
+<h1 hidden>The Tipsy Mixer</h1>
+<section id="drink-highlight">
+  <div class="inner">
+    <h2 class="section-heading">Tipsy's Choice</h2>
+    <div id="highlight-container">
+
+      <!-- HIGHLIGHT INSERTED HERE -->
+
+    </div>
+  </div>
+</section>
+
+
+
+<section id="drink-carousel">
+  <div class="inner">
+    <h2 class="section-heading">Lounge Faves</h2>
+    <div id="carousel-container">
+      <div class="img-carousel-container">
+        <a href="#"><i class="fas fa-chevron-left"></i></a>
+        <a href="#"><i class="fas fa-chevron-right"></i></a>
+        <div class="img-dots">
+          <div class="dot active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+        <!-- HIGHLIGHT INSERTED HERE -->
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
   <div class="drink-wrapper">
     <select name="categories" id="category-selector">
       <option value="Cocktail">Cocktail</option>

@@ -4,6 +4,18 @@
   box-sizing: border-box;
 }
 
-// body {
-//   background: palegreen;
-// }
+section {
+  padding: 3rem 0;
+  border-bottom: 1px solid #111;
+
+  .section-heading {
+    width: 90%;
+    text-align: center;
+    padding: 0.8rem 0;
+    color: #fff;
+    margin: 0 auto;
+    background-color: #111;
+    box-shadow: 6px 4px 8px rgba(0, 0, 0, 0.4);
+  }
+
+}
