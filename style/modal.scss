@@ -18,7 +18,7 @@
 
   .modal {
     width: 90%;
-    background-color: #aaaaaa;
+    background-color: #ddd;
     border-radius: 12px;
     position: fixed;
     z-index: 100000000;
@@ -26,6 +26,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 2rem;
+    display: flex;
 
     .fa-times-circle {
       position: absolute;
