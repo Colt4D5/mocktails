@@ -8,4 +8,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 	await model.loadResults(API_URL);
 
 	await view.renderResults(model.state);
+
+	// EVENT LISTENERS
+	document.querySelector('.img-carousel-container').addEventListener('click', view.handleCarouselClick.bind(view));
+	document.querySelector('.modal-wrapper').addEventListener('click', view.closeModal);
 });

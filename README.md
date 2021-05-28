@@ -51,3 +51,16 @@
   - Refactor fetch for drink of the week carousel and pass drinks to View for markup to be generated and rendered
   - Design container with next and previous btns for carousel and active/inactive bubbles display
   - (Finishing carousel tomorrow)
+
+
+## Day 4
+
+- Finished Carousel functionality
+  - Dynamically add images and drink names to gallery using the cocktailDB's patreon-supporter API key, as well as dynamically adding the dots at the bottom that determine which index you are currently on
+  - Gallery scrolls with the left and right buttons as well as to a specific index when pushing the dots at the bottom
+- Added a modal to the Carousel and the paginated drinks list
+  - When an image is clicked, the drink ID is pulled and fetches the database (www.thecocktaildb.com/api/json/v2/${myPatreonApiKey}/lookup.php?i=${11007}) for that drink ID and returns the information
+  - Populate the modal dynamically based on returned API data
+  - Add event listeners to close button as well as the dark overlay to exit MODAL
+- Finish mobile design
+  - Added footer with mockup info

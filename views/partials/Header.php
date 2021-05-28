@@ -12,9 +12,9 @@
   <!-- Font Awesome CDN -->
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
   
-  <!-- <script type="module" defer src="js/highlight/controller.js"></script> -->
+  <script type="module" defer src="js/highlight/controller.js"></script>
   <script type="module" defer src="js/carousel/controller.js"></script>
-  <!-- <script type="module" defer src="js/drinks/controller.js"></script> -->
+  <script type="module" defer src="js/drinks/controller.js"></script>
   <title>The Tipsy Mixer</title>
 </head>
 <body>
@@ -36,3 +36,11 @@
       </ul>
     </nav>
   </header>
+
+  <div class="modal-wrapper">
+    <div class="overlay"></div>
+    <div class="modal">
+      <h2><!-- DRINK TITLE GOES HERE --></h2>
+      
+    </div>
+  </div>

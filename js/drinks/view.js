@@ -1,8 +1,9 @@
-import { RES_PER_PAGE } from './config.js';
+import { RES_PER_PAGE, API_KEY } from './config.js';
 
 class View {
   _parentContainer = document.querySelector('#drinks-container');
   _data;
+  _drinkInfo;
 
   renderResults(data) {
     this._data = data;
@@ -32,7 +33,7 @@ class View {
   }
 
   generateMarkup(results) {
-    const html = results.map(drink => {
+    results.map(drink => {
       const markup = `
         <div class="card card-cocktail" data-id="${drink.idDrink}">
           <img class="img-cocktail" src="${drink.strDrinkThumb}" alt="${drink.strDrink} thumbnail" />
@@ -97,6 +98,63 @@ class View {
       btn.addEventListener('click', this.changePage.bind(this));
     })
   }
+
+  handleCarouselClick(e) {
+    if (e.target.closest('.card-cocktail')) {
+      const id = Number(e.target.closest('.card-cocktail').dataset.id);
+      this.toggleModal(id);
+    } else {
+      return;
+    }
+  }
+
+    // I know this is not supposed to be in the View... :(
+      async toggleModal(id) {
+        await this.fetchDrinkInfo(id);
+        this.populateModal();
+      }
+    
+      async fetchDrinkInfo(id) {
+        const url = `https://www.thecocktaildb.com/api/json/v2/${API_KEY}/lookup.php?i=`;
+        try {
+          console.log(`url: ${url}${id}`);
+          const res = await fetch(`${url}${id}`);
+          const {drinks} = await res.json();
+          const data = drinks[0];
+          const drink = {
+            id: id,
+            name: data.strDrink,
+            img: data.strDrinkThumb,
+            instructions: data.strInstructions
+          };
+          console.log(drink);
+          this._drinkInfo = drink;
+        } catch(e) {
+          console.log('Could not find that drink');
+        }
+      }
+    
+      populateModal() {
+        document.querySelector('.modal-wrapper').classList.add('active');
+        const modal = document.querySelector('.modal');
+        const html = `
+        <i class="far fa-times-circle"></i>
+        <h4 class="header">${this._drinkInfo.name}</h4>
+        <div class="img-box">
+          <img src="${this._drinkInfo.img}" alt="${this._drinkInfo.name} Thumbnail">
+        </div>
+        <p class="instructions">${this._drinkInfo.instructions}</p>`;
+        modal.insertAdjacentHTML('beforeend', html);
+      }
+    
+      closeModal(e) {
+        if (e.target.classList.contains('overlay') ||
+            e.target.closest('.fa-times-circle')) {
+          document.querySelector('.modal').innerHTML = '';
+          document.querySelector('.modal-wrapper').classList.remove('active');
+        }
+      }
+
 }
 
 export default new View();

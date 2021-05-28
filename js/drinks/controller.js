@@ -21,18 +21,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 		model.state.page = 1;
 
-		switch(selection) {
-			case 'Cocktail':
-				document.querySelector('.drink-wrapper').style.backgroundColor = 'palegreen';
-				break;
-			case 'Ordinary Drink':
-				document.querySelector('.drink-wrapper').style.backgroundColor = 'paleTurquoise';
-				break;
-			case 'Milk / Float / Shake':
-				document.querySelector('.drink-wrapper').style.backgroundColor = 'lightpink';
-				break;
-		}
+		// switch(selection) {
+		// 	case 'Cocktail':
+		// 		document.querySelector('.drink-wrapper').style.backgroundColor = 'palegreen';
+		// 		break;
+		// 	case 'Ordinary Drink':
+		// 		document.querySelector('.drink-wrapper').style.backgroundColor = 'paleTurquoise';
+		// 		break;
+		// 	case 'Milk / Float / Shake':
+		// 		document.querySelector('.drink-wrapper').style.backgroundColor = 'lightpink';
+		// 		break;
+		// }
 
 		await view.renderResults(model.state);
 	});
+	
+	document.querySelector('#drinks-container').addEventListener('click', view.handleCarouselClick.bind(view));
+	document.querySelector('.modal-wrapper').addEventListener('click', view.closeModal);
 });

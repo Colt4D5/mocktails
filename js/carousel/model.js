@@ -10,7 +10,6 @@ class Data {
     console.log(url);
     try {
       const res = await fetch(url);
-      console.log(res);
       if (!res.ok) return new Error('Oops! Could not find your drinks.');
       const {drinks} = await res.json();
       this.state.allImgs = drinks;

@@ -8,14 +8,36 @@ section {
   padding: 3rem 0;
   border-bottom: 1px solid #111;
 
-  .section-heading {
+  .section-heading-container {
     width: 90%;
-    text-align: center;
     padding: 0.8rem 0;
-    color: #fff;
     margin: 0 auto;
     background-color: #111;
     box-shadow: 6px 4px 8px rgba(0, 0, 0, 0.4);
+    display: grid;
+    place-items: center;
+
+    .section-heading {
+      color: #fff;
+      margin: 0 auto;
+      position: relative;
+      z-index: 5;
+
+      &::before {
+        content: '';
+        width: 90%;
+        height: 80%;
+        background-color: $contrast2;
+        position: absolute;
+        bottom: -4px;
+        left: -16px;
+        z-index: -1;
+      }
+    }
+  }
+
+  &:nth-child(even) {
+    background-color: #eee;
   }
 
 }

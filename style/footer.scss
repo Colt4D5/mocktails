@@ -1,5 +1,96 @@
 footer {
-  background-color: $primary-dark;
-  display: flex;
-  justify-content: center;
+  background-color: #222;
+  color: #ccc;
+
+  .link-wrapper {
+    padding: 2rem;
+
+    .section-footer {
+      margin: 2rem 0;
+    }
+
+    h3 {
+      color: #fff;
+      font-weight: 300;
+      font-size: 1.5rem;
+
+      span {
+        color: $contrast2;
+        font-size: 2rem;
+        font-weight: 900;
+      }
+    }
+
+    p {
+      margin: 1rem 0;
+
+      .fas {
+        color: $contrast2;
+      }
+
+      a {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: $contrast2;
+        }
+      }
+    }
+
+    ul {
+      margin-left: 1rem;
+
+      li {
+        margin: 6px 0;
+      }
+    }
+
+    #email {
+      width: 250px;
+      padding: 6px;
+      border-radius: 4px;
+      background-color: #444;
+      color: #999;
+      border: none;
+      margin: 8px 0;
+    }
+
+    #message {
+      width: 250px;
+      padding: 6px;
+      border-radius: 4px;
+      background-color: #444;
+      color: #999;
+      border: none;
+      margin: 8px 0;
+    }
+
+    #submit {
+      padding: 6px 1rem;
+      border-radius: 4px;
+      background-color: #444;
+      font-size: 1.2rem;
+      color: $contrast2;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #555;
+        color: lighten($contrast2, 10%);
+      }
+    }
+
+    form {
+      white-space: wrap;
+    }
+  }
+
+  .copyright {
+    background-color: #111;
+    color: #555;
+    text-align: center;
+    padding: 4px 0;
+  }
 }
