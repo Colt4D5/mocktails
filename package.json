@@ -4,8 +4,12 @@
   "description": "A mockup of a website advertising Cocktails",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "devStart": "parcel index.html",
+    "build": "parcel build index.html"
   },
   "author": "Colton Arthur Allen",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
 }

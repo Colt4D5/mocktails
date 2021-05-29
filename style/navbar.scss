@@ -1,12 +1,17 @@
 header {
   #hero {
-    background-image: url('../assets/cocktail-glasses.jpg');
-    background-position: center;
-    background-size: cover;
     height: 200px;
     position: relative;
     display: grid;
     place-items: center;
+    overflow: hidden;
+    // background-color: #111;
+
+    .img-hero {
+      position: absolute;
+      z-index: -2;
+      width: 100%;
+    }
 
     .overlay {
       position: absolute;
@@ -27,7 +32,7 @@ header {
   }
 
   nav {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     background-color: #ccc;
@@ -38,16 +43,20 @@ header {
       display: flex;
       list-style: none;
 
-      a {
+      .scroll {
+        background-color: transparent;
+        border: none;
         font-family: 'Josefin Sans', sans-serif;
         color: #fff;
         font-size: 1.4rem;
         font-weight: 600;
         text-decoration: none;
         padding: 0.5rem;
-        margin: 0 0.5rem;
+        margin: 0 1rem;
         z-index: 2;
         position: relative;
+        white-space: nowrap;
+        cursor: pointer;
 
         &:hover::before {
           width: 90%;
@@ -63,6 +72,94 @@ header {
           left: -9px;
           z-index: -1;
           transition: width 0.5s ease;
+        }
+      }
+    }
+  }
+
+  .mobile-menu-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background-color: rgba(0,0,0,0);
+    z-index: 10000;
+
+    .fa-bars {
+      position: absolute;
+      font-size: 1.5rem;
+      top: 8px;
+      right: 10px;
+      color: #fff;
+      cursor: pointer;
+
+      &:hover {
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.75);
+      }
+    }
+  }
+
+  .menu-btn-container {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: $contrast2;
+    // overflow: hidden;
+    clip-path: circle(1% at 105% -5px);
+    transition: all 1s ease;
+    z-index: 1000000000;
+
+    &.active {
+      clip-path: circle(200%);
+    }
+
+    .fa-times-circle {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 2rem;
+      color: #111;
+      z-index: 10;
+      transition: text-shadow 0.4s ease;
+
+      &:hover {
+        text-shadow: 0 0 8px rgba(255, 255, 255, 1);
+      }
+    }
+
+    ul {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      list-style: none;
+      height: 100vh;
+
+      .mobile-scroll {
+        background-color: transparent;
+        border: none;
+        font-size: 3rem;
+        color: #fff;
+        text-decoration: none;
+        position: relative;
+        z-index: 5;
+        cursor: pointer;
+
+        &::before {
+          content: ' ';
+          width: 100%;
+          height: 16px;
+          background-color: #111;
+          position: absolute;
+          bottom: 0;
+          left: -12px;
+          z-index: -1;
         }
       }
     }

@@ -4,12 +4,18 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 400;
+}
+
 section {
   padding: 3rem 0;
   border-bottom: 1px solid #111;
 
   .section-heading-container {
-    width: 90%;
+    width: 80%;
+    max-width: 400px;
     padding: 0.8rem 0;
     margin: 0 auto;
     background-color: #111;
@@ -21,7 +27,9 @@ section {
       color: #fff;
       margin: 0 auto;
       position: relative;
+      font-weight: 300;
       z-index: 5;
+      font-family: 'Josefin Sans', sans-serif;
 
       &::before {
         content: '';

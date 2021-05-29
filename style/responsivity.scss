@@ -3,22 +3,132 @@
     max-width: 90%;
     height: 100%;
   }
+
+  footer {
+    .link-wrapper {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-around;
+      flex-wrap: wrap;
+
+      .section-footer {
+        margin: 2rem;
+        width: 30%;
+
+        #email, #message {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .img-carousel-container {
+    height: 575px;
+  }
 }
 
 @media (min-width: 768px){
 
-  // ...
-  
+  #hero {
+    padding: 0 4rem;
+    background: #111;
+    display: flex;
+
+    .img-hero {
+      max-height: 100%;
+      position: relative;
+      left: 0;
+      z-index: 1 !important;
+      width: auto !important; 
+      box-shadow: inset 50px 0 50px rgba(0, 0, 0, 1) !important;
+    }
+
+    .overlay {
+      top: 0;
+      left: 0;
+      width: 300px !important;
+      height: 200px !important;
+      z-index: 10;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0),
+                                            rgba(255, 255, 255, 0),
+                                            rgba(255, 255, 255, 0),
+                                            rgba(17,17,17,1)) !important;
+      // border: 1px solid white;
+    }
+
+    .logo-link {
+      position: absolute;
+      right: 20%;
+      z-index: 10;
+
+
+      .logo {
+        max-height: 125px;
+      }
+    }
   }
-  
-  @media (min-width: 1024px){
-  
-  // ...
-  
+
+  .mobile-menu-wrapper {
+    display: none !important;
   }
-  
-  @media (min-width: 1200px){
-  
-  // ...
-  
+
+  nav {
+    display: flex !important;
+
   }
+
+  .img-carousel-container {
+    height: 650px !important;
+  }
+
+  footer {
+    .link-wrapper {
+      padding: 2rem 0;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-around;
+
+      .section-footer {
+        margin: 0 2rem;
+        width: 25%;
+
+        #email, #message {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+}
+
+@media (min-width: 1024px){
+  #hero {
+    height: 350px !important;
+
+    .overlay {
+      width: 525px !important;
+      height: 350px !important;
+    }
+
+    .logo-link {
+      right: 15%;
+
+      .logo {
+        height: 180px;
+        max-height: 180px !important;
+      }
+    }
+  }
+}
+
+@media (min-width: 1200px){
+  .logo-link {
+    right: 20%;
+
+    .logo {
+      height: 200px;
+      max-height: 200px !important;
+    }
+  }
+}

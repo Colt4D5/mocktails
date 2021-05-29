@@ -64,3 +64,12 @@
   - Add event listeners to close button as well as the dark overlay to exit MODAL
 - Finish mobile design
   - Added footer with mockup info
+
+## Day Five
+
+- Finished responsive styling
+- Added mobile menu for easy access with smaller screens
+  - Nav smooth scrolls to corresponding sections
+- Removed PHP routing elements and requires, replaced with single-page html
+- Installed Parcel Bundler for distribution
+  - Added a script to start a dev environment session as well as a build script for deployment

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style/style.css">
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet"> 
+  
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  
+  <script type="text/javascript" defer src="js/main.js"></script>
+  <script type="module" defer src="js/highlight/controller.js"></script>
+  <script type="module" defer src="js/carousel/controller.js"></script>
+  <script type="module" defer src="js/drinks/controller.js"></script>
+  <title>The Tipsy Mixer</title>
+</head>
+<body>
+  <main>
+  
+  <header>
+
+    <div class="mobile-menu-wrapper">
+      <i class="fas fa-bars" data-menu="toggle"></i>
+    </div>
+    <div class="menu-btn-container">
+      <i class="far fa-times-circle" data-menu="toggle"></i>
+      <ul>
+        <li><button class="mobile-scroll" data-btn="choice">Tipsy's Choice</button></li>
+        <li><button class="mobile-scroll" data-btn="faves">Lounge Faves</button></li>
+        <li><button class="mobile-scroll" data-btn="all">All Drinks</button></li>
+      </ul>
+    </div>
+
+
+    <div id="hero">
+      <img class="img-hero" src="assets/cocktail-glasses.jpg" alt="Cocktail Glasses Background">
+      <div class="overlay"></div>
+      <a href="/" class="logo-link">
+        <img src="./assets/tipsy-logo.png" class="logo" alt="The Tipsy Mixer Logo">
+      </a>
+    </div>
+
+
+    <nav>
+      <ul>
+        <li><button class="scroll" data-btn="choice">Tipsy's Choice</button></li>
+        <li><button class="scroll" data-btn="faves">Lounge Faves</button></li>
+        <li><button class="scroll" data-btn="all">All Drinks</button></li>
+      </ul>
+    </nav>
+
+
+  </header>
+
+  <div class="modal-wrapper">
+    <div class="overlay"></div>
+    <div class="modal">
+      <h2><!-- DRINK TITLE GOES HERE --></h2>
+      
+    </div>
+  </div>
+
+
+
+  <!-- CONTENT -->
+
+
+  <h1 hidden>The Tipsy Mixer</h1>
+
+
+  <section id="drink-highlight">
+    <div class="inner">
+      <div class="section-heading-container">
+        <h2 class="section-heading">Tipsy's Choice</h2>
+      </div>
+      <div id="highlight-container">
+
+        <!-- HIGHLIGHT INSERTED HERE -->
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <section id="drink-carousel">
+    <div class="inner">
+      <div class="section-heading-container">
+        <h2 class="section-heading">Lounge Faves</h2>
+      </div>
+      <div id="carousel-container">
+        <div class="img-carousel-container">
+          <!-- HIGHLIGHT INSERTED HERE -->
+          <button data-value="-1"><i class="fas fa-chevron-left"></i></button>
+          <button data-value="1"><i class="fas fa-chevron-right"></i></button>
+          <div class="img-dots">
+            <!-- INSERT DOTS HERE -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="drink-wrapper">
+      <div class="section-heading-container">
+        <h2 class="section-heading">Get in the Spirit</h2>
+      </div>
+
+      <div class="selector-wrapper">
+        <h2 class="selector-heading">Find the right drink for your mood</h2><br/>
+        <div class="selector">
+          <h3>Select an Occasion:</h3>
+          <select name="categories" id="category-selector">
+            <option value="Cocktail">Cocktail</option>
+            <option value="Ordinary Drink">Ordinary Drink</option>
+            <option value="Milk / Float / Shake">Milk / Float / Shake</option>
+            <option value="Other/Unknown">Other/Unknown</option>
+            <option value="Cocoa">Cocoa</option>
+            <option value="Shot">Shot</option>
+            <option value="Coffee / Tea">Coffee / Tea</option>
+            <option value="Homemade Liqueur">Homemade Liqueur</option>
+            <option value="Punch / Party Drink">Punch / Party Drink</option>
+            <option value="Beer">Beer</option>
+            <option value="Soft Drink / Soda">Soft Drink / Soda</option>
+          </select>
+        </div>
+      </div>
+      <div id="drinks-container">
+        <!-- DRINK CARDS GO HERE -->
+      </div>
+      <div class="page-btn-container"></div>
+    </div>
+  </section>
+
+  <div class="modal-wrapper">
+    <div class="overlay"></div>
+    <div class="modal">
+      <!-- MODAL INFO POPULATED HERE -->
+    </div>
+  </div>
+
+  <footer>
+    <div class="link-wrapper">
+      <div class="section-footer details">
+        <h3>The <span>Tipsy</span> Mixer</h3>
+        <p>The Tipsy Mixer is a fictional cocktail website created by Colton Arthur Allen, and he would be honored to be a part of Imaginal Marketing Group. :)</p>
+        <p><i class="fas fa-phone-alt"></i> <a href=”tel:+14123815500″>(951) 756-0273</a></p>
+        <p><i class="fas fa-envelope"></i> <a href="mailto:m.bluth@example.com">coltonaallen@gmail.com</a></p>
+      </div>
+      <div class="section-footer links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li>Events</li>
+          <li>Contact</li>
+          <li>Galleries</li>
+          <li>Mixers</li>
+          <li>Careers</li>
+          <li>Terms and Conditions</li>
+        </ul>
+      </div>
+      <div class="section-footer contact">
+        <form action="submit-form.php">
+          <h3>Contact Us</h3>
+          <input type="email" name="email" id="email" placeholder="Your email address..." pattern=".+@someplace.com" size="30" required>
+          <br/>
+          <textarea name="message" id="message" placeholder="Message..."></textarea>
+          <br/>
+          <button type="submit" id="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="copyright">
+      <i class="far fa-copyright"></i> The Tipsy Mixer | Designed by <a href="https://coltonallen.dev">Colton Arthur Allen</a>
+    </div>
+  </footer>
+
+  </main>
+</body>
+</html>
