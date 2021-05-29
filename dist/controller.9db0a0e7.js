@@ -129,7 +129,7 @@ const API_KEY = '9973533'; // PERSONAL API_KEY FROM PATREON
 // const API_URL = `http://www.thecocktaildb.com/api/json/v1/${API_KEY}/search.php?s=margarita`;
 
 exports.API_KEY = API_KEY;
-const API_URL = `http://www.thecocktaildb.com/api/json/v2/${API_KEY}/filter.php?c=`;
+const API_URL = `https://www.thecocktaildb.com/api/json/v2/${API_KEY}/filter.php?c=`;
 exports.API_URL = API_URL;
 const RES_PER_PAGE = 6;
 exports.RES_PER_PAGE = RES_PER_PAGE;
@@ -424,7 +424,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55513" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55839" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

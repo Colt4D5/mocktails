@@ -127,7 +127,7 @@ exports.API_URL = exports.API_KEY = void 0;
 const API_KEY = '9973533'; // PERSONAL API_KEY FROM PATREON
 
 exports.API_KEY = API_KEY;
-const API_URL = `http://www.thecocktaildb.com/api/json/v2/${API_KEY}/latest.php`;
+const API_URL = `https://www.thecocktaildb.com/api/json/v2/${API_KEY}/latest.php`;
 exports.API_URL = API_URL;
 },{}],"js/carousel/view.js":[function(require,module,exports) {
 "use strict";
@@ -414,7 +414,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55513" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55839" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
