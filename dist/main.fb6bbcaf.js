@@ -118,19 +118,19 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"js/main.js":[function(require,module,exports) {
-var navBtn = document.querySelectorAll('.scroll');
-var mobileNav = document.querySelector('.mobile-menu-wrapper');
-var mobileLink = document.querySelectorAll('.mobile-scroll');
-var closeMenuBtn = document.querySelector('.fa-times-circle');
+const navBtn = document.querySelectorAll('.scroll');
+const mobileNav = document.querySelector('.mobile-menu-wrapper');
+const mobileLink = document.querySelectorAll('.mobile-scroll');
+const closeMenuBtn = document.querySelector('.fa-times-circle');
 
-var handleClick = function handleClick(e) {
-  var target = e.target;
+const handleClick = e => {
+  const target = e.target;
   if (!target.closest('i').dataset.menu) return;
   document.querySelector('.menu-btn-container').classList.toggle('active');
 };
 
-var handleScroll = function handleScroll(e) {
-  var btn = e.target.dataset.btn;
+const handleScroll = e => {
+  const btn = e.target.dataset.btn;
 
   if (btn === 'choice') {
     document.querySelector('.menu-btn-container').classList.remove('active');
@@ -144,21 +144,15 @@ var handleScroll = function handleScroll(e) {
   }
 };
 
-var scrollTo = function scrollTo(section) {
+const scrollTo = section => {
   section.scrollIntoView({
     behavior: "smooth"
   });
 };
 
-[mobileNav, closeMenuBtn].forEach(function (btn) {
-  return btn.addEventListener('click', handleClick);
-});
-navBtn.forEach(function (btn) {
-  return btn.addEventListener('click', handleScroll);
-});
-mobileLink.forEach(function (btn) {
-  return btn.addEventListener('click', handleScroll);
-});
+[mobileNav, closeMenuBtn].forEach(btn => btn.addEventListener('click', handleClick));
+navBtn.forEach(btn => btn.addEventListener('click', handleScroll));
+mobileLink.forEach(btn => btn.addEventListener('click', handleScroll));
 },{}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -187,7 +181,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63503" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55513" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

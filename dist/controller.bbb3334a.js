@@ -124,10 +124,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.API_URL = void 0;
-var API_KEY = '9973533'; // PERSONAL API_KEY FROM PATREON
+const API_KEY = '9973533'; // PERSONAL API_KEY FROM PATREON
 
-var DRINK_ID = '17005';
-var API_URL = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=".concat(DRINK_ID);
+const DRINK_ID = '17005';
+const API_URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${DRINK_ID}`;
 exports.API_URL = API_URL;
 },{}],"js/highlight/view.js":[function(require,module,exports) {
 "use strict";
@@ -137,45 +137,49 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var View = /*#__PURE__*/function () {
-  function View() {
-    _classCallCheck(this, View);
-
+class View {
+  constructor() {
     _defineProperty(this, "_parentContainer", document.querySelector('#highlight-container'));
 
     _defineProperty(this, "_data", void 0);
   }
 
-  _createClass(View, [{
-    key: "renderHighlight",
-    value: function renderHighlight(data) {
-      this._data = data;
-      var html = this.generateMarkup(this._data);
-      this.insertHighlight(html);
-    }
-  }, {
-    key: "generateMarkup",
-    value: function generateMarkup(data) {
-      var html = "\n      <div class=\"img-highlight-wrapper\">\n        <img class=\"img-highlight\" src=\"".concat(data.img, "\" alt=\"").concat(data.name, " highlight\">\n        <div class=\"overlay-highlight\">\n          <p><strong>Glass</strong>: ").concat(data.glass, "</p>\n          <p><strong>Instructions</strong>: ").concat(data.instructions, "</p>\n          <p><strong>Ingredients</strong>:</p>\n            <div class=\"ingredients-list\">\n              <ul>\n                <li>").concat(data.ing1, " - ").concat(data.measure1, "</li>\n                <li>").concat(data.ing2, " - ").concat(data.measure2, "</li>\n                <li>").concat(data.ing3, "</li>\n                <li>").concat(data.ing4, "</li>\n              </ul>\n            </div>\n        </div>\n      </div>\n      <h3 class=\"title-highlight\">").concat(data.name, "</h3>\n      ");
-      return html;
-    }
-  }, {
-    key: "insertHighlight",
-    value: function insertHighlight(html) {
-      this._parentContainer.insertAdjacentHTML('beforeend', html);
-    }
-  }]);
+  renderHighlight(data) {
+    this._data = data;
+    const html = this.generateMarkup(this._data);
+    this.insertHighlight(html);
+  }
 
-  return View;
-}();
+  generateMarkup(data) {
+    const html = `
+      <div class="img-highlight-wrapper">
+        <img class="img-highlight" src="${data.img}" alt="${data.name} highlight">
+        <div class="overlay-highlight">
+          <p><strong>Glass</strong>: ${data.glass}</p>
+          <p><strong>Instructions</strong>: ${data.instructions}</p>
+          <p><strong>Ingredients</strong>:</p>
+            <div class="ingredients-list">
+              <ul>
+                <li>${data.ing1} - ${data.measure1}</li>
+                <li>${data.ing2} - ${data.measure2}</li>
+                <li>${data.ing3}</li>
+                <li>${data.ing4}</li>
+              </ul>
+            </div>
+        </div>
+      </div>
+      <h3 class="title-highlight">${data.name}</h3>
+      `;
+    return html;
+  }
+
+  insertHighlight(html) {
+    this._parentContainer.insertAdjacentHTML('beforeend', html);
+  }
+
+}
 
 var _default = new View();
 
@@ -188,96 +192,41 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var Data = /*#__PURE__*/function () {
-  function Data() {
-    _classCallCheck(this, Data);
-
+class Data {
+  constructor() {
     _defineProperty(this, "_highlight", void 0);
   }
 
-  _createClass(Data, [{
-    key: "loadResults",
-    value: function () {
-      var _loadResults = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(url) {
-        var res, _yield$res$json, drinks, drink, drinkObj;
+  async loadResults(url) {
+    // console.log(url);
+    try {
+      const res = await fetch(url);
+      if (!res) return new Error('Oops! Could not find your drinks.');
+      const {
+        drinks
+      } = await res.json();
+      const drink = drinks[0];
+      const drinkObj = {
+        name: drink.strDrink,
+        img: drink.strDrinkThumb,
+        glass: drink.strGlass,
+        instructions: drink.strInstructions,
+        ing1: drink.strIngredient1,
+        ing2: drink.strIngredient2,
+        ing3: drink.strIngredient3,
+        ing4: drink.strIngredient4,
+        measure1: drink.strMeasure1,
+        measure2: drink.strMeasure2
+      };
+      this._highlight = drinkObj;
+    } catch (e) {
+      console.error(`Oops! ${e.message}`);
+    }
+  }
 
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return fetch(url);
-
-              case 3:
-                res = _context.sent;
-
-                if (res) {
-                  _context.next = 6;
-                  break;
-                }
-
-                return _context.abrupt("return", new Error('Oops! Could not find your drinks.'));
-
-              case 6:
-                _context.next = 8;
-                return res.json();
-
-              case 8:
-                _yield$res$json = _context.sent;
-                drinks = _yield$res$json.drinks;
-                drink = drinks[0];
-                drinkObj = {
-                  name: drink.strDrink,
-                  img: drink.strDrinkThumb,
-                  glass: drink.strGlass,
-                  instructions: drink.strInstructions,
-                  ing1: drink.strIngredient1,
-                  ing2: drink.strIngredient2,
-                  ing3: drink.strIngredient3,
-                  ing4: drink.strIngredient4,
-                  measure1: drink.strMeasure1,
-                  measure2: drink.strMeasure2
-                };
-                this._highlight = drinkObj;
-                _context.next = 18;
-                break;
-
-              case 15:
-                _context.prev = 15;
-                _context.t0 = _context["catch"](0);
-                console.error("Oops! ".concat(_context.t0.message));
-
-              case 18:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this, [[0, 15]]);
-      }));
-
-      function loadResults(_x) {
-        return _loadResults.apply(this, arguments);
-      }
-
-      return loadResults;
-    }()
-  }]);
-
-  return Data;
-}();
+}
 
 var _default = new Data();
 
@@ -293,30 +242,12 @@ var _model = _interopRequireDefault(require("./model.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 // CONTROLLER
-document.addEventListener('DOMContentLoaded', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-  return regeneratorRuntime.wrap(function _callee$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.next = 2;
-          return _model.default.loadResults(_config.API_URL);
-
-        case 2:
-          _context.next = 4;
-          return _view.default.renderHighlight(_model.default._highlight);
-
-        case 4:
-        case "end":
-          return _context.stop();
-      }
-    }
-  }, _callee);
-})));
+document.addEventListener('DOMContentLoaded', async () => {
+  // GET INITIAL PRODUCT
+  await _model.default.loadResults(_config.API_URL);
+  await _view.default.renderHighlight(_model.default._highlight);
+});
 },{"./config.js":"js/highlight/config.js","./view.js":"js/highlight/view.js","./model.js":"js/highlight/model.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -345,7 +276,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63503" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55513" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

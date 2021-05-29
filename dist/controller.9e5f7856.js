@@ -124,10 +124,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.API_URL = exports.API_KEY = void 0;
-var API_KEY = '9973533'; // PERSONAL API_KEY FROM PATREON
+const API_KEY = '9973533'; // PERSONAL API_KEY FROM PATREON
 
 exports.API_KEY = API_KEY;
-var API_URL = "http://www.thecocktaildb.com/api/json/v2/".concat(API_KEY, "/latest.php");
+const API_URL = `http://www.thecocktaildb.com/api/json/v2/${API_KEY}/latest.php`;
 exports.API_URL = API_URL;
 },{}],"js/carousel/view.js":[function(require,module,exports) {
 "use strict";
@@ -139,22 +139,10 @@ exports.default = void 0;
 
 var _config = require("./config.js");
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var View = /*#__PURE__*/function () {
-  function View() {
-    _classCallCheck(this, View);
-
+class View {
+  constructor() {
     _defineProperty(this, "_parentContainer", document.querySelector('.img-carousel-container'));
 
     _defineProperty(this, "_data", void 0);
@@ -166,255 +154,163 @@ var View = /*#__PURE__*/function () {
     _defineProperty(this, "_drinkInfo", void 0);
   }
 
-  _createClass(View, [{
-    key: "renderResults",
-    value: function () {
-      var _renderResults = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(data) {
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                this._data = data; // console.log(this._data);
+  async renderResults(data) {
+    this._data = data; // console.log(this._data);
 
-                _context.next = 3;
-                return this.generateMarkup();
+    await this.generateMarkup();
+    this.handleCarousel();
+  }
 
-              case 3:
-                this.handleCarousel();
+  clearHTML() {
+    this._parentContainer.innerHTML = '';
+  }
 
-              case 4:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
+  generateMarkup() {
+    this._data.allImgs.map((drink, i) => {
+      const markup = `
+          <div data-drink-id="${drink.idDrink}" class="carousel-title-wrapper"><h4 class="carousel-title">${drink.strDrink}</h4></div>
+          <img class="img-cocktail" data-index="${i}" src="${drink.strDrinkThumb}" alt="${drink.strDrink} thumbnail" />
+          `;
+      this.renderHTML(markup);
+      this.insertDot(i);
+    });
 
-      function renderResults(_x) {
-        return _renderResults.apply(this, arguments);
-      }
+    this.setActiveDot();
+  }
 
-      return renderResults;
-    }()
-  }, {
-    key: "clearHTML",
-    value: function clearHTML() {
-      this._parentContainer.innerHTML = '';
+  insertDot(i) {
+    const dot = `
+        <div data-index="${i}" class="dot"></div>
+      `;
+
+    this._dotContainer.insertAdjacentHTML('beforeend', dot);
+  }
+
+  renderHTML(html) {
+    this._parentContainer.insertAdjacentHTML('beforeend', html);
+  }
+
+  handleCarousel() {
+    const imgs = document.querySelectorAll('.img-cocktail');
+    const titles = document.querySelectorAll('.carousel-title-wrapper');
+    imgs.forEach((img, i) => {
+      img.style.transform = `translateX(${100 * (i - this._currentImg)}%)`;
+    });
+    titles.forEach((title, i) => {
+      title.style.transform = `translateX(${-200 * (i - this._currentImg)}%)`;
+    });
+  }
+
+  handleCarouselClick(e) {
+    if (e.target.closest('button')) {
+      const value = Number(e.target.closest('button').dataset.value);
+      if (this._currentImg <= 0 && value === -1 || this._currentImg >= this._data.allImgs.length - 1 && value === 1) return console.log("Can't Do that!");
+      this.scrollCarousel(value);
+    } else if (e.target.closest('.dot')) {
+      const dotIndex = e.target.dataset.index;
+      this.scrollCarouselTo(dotIndex);
+    } else if (e.target.closest('.carousel-title-wrapper')) {
+      const id = e.target.closest('.carousel-title-wrapper').dataset.drinkId; // console.log(id);
+
+      this.toggleModal(id);
+    } else {
+      return;
     }
-  }, {
-    key: "generateMarkup",
-    value: function generateMarkup() {
-      var _this = this;
+  }
 
-      this._data.allImgs.map(function (drink, i) {
-        var markup = "\n          <div data-drink-id=\"".concat(drink.idDrink, "\" class=\"carousel-title-wrapper\"><h4 class=\"carousel-title\">").concat(drink.strDrink, "</h4></div>\n          <img class=\"img-cocktail\" data-index=\"").concat(i, "\" src=\"").concat(drink.strDrinkThumb, "\" alt=\"").concat(drink.strDrink, " thumbnail\" />\n          ");
+  scrollCarousel(value) {
+    this._currentImg += value;
+    console.log(this._currentImg);
+    const imgs = document.querySelectorAll('.img-cocktail');
+    const titles = document.querySelectorAll('.carousel-title-wrapper');
+    imgs.forEach((img, i) => {
+      img.style.transform = `translateX(${100 * (i - this._currentImg)}%)`;
+    });
+    titles.forEach((title, i) => {
+      title.style.transform = `translateX(${-200 * (i - this._currentImg)}%)`;
+    });
+    this.setActiveDot();
+  }
 
-        _this.renderHTML(markup);
+  scrollCarouselTo(i) {
+    const imgs = document.querySelectorAll('.img-cocktail');
+    const titles = document.querySelectorAll('.carousel-title-wrapper');
+    this._currentImg = Number(i);
+    imgs.forEach((img, i) => {
+      img.style.transform = `translateX(${100 * (i - this._currentImg)}%)`;
+    });
+    titles.forEach((title, i) => {
+      title.style.transform = `translateX(${-200 * (i - this._currentImg)}%)`;
+    });
+    this.setActiveDot();
+  }
 
-        _this.insertDot(i);
-      });
+  setActiveDot() {
+    const dots = document.querySelectorAll('.dot');
+    const index = Number(this._currentImg);
+    dots.forEach((dot, i) => {
+      dot.classList.remove('active');
+      if (index === i) dot.classList.add('active');
+    });
+  } // I know this is not supposed to be in the View... :(
 
-      this.setActiveDot();
+
+  async toggleModal(id) {
+    await this.fetchDrinkInfo(id);
+  }
+
+  async fetchDrinkInfo(id) {
+    const url = `https://www.thecocktaildb.com/api/json/v2/${_config.API_KEY}/lookup.php?i=`;
+
+    try {
+      console.log(`url: ${url}${id}`);
+      const res = await fetch(`${url}${id}`);
+      const {
+        drinks
+      } = await res.json();
+      const data = drinks[0];
+      const drink = {
+        id: id,
+        name: data.strDrink,
+        img: data.strDrinkThumb,
+        instructions: data.strInstructions
+      };
+      console.log(drink);
+      this._drinkInfo = drink;
+      this.populateModal();
+    } catch (e) {
+      console.log('Could not find that drink');
     }
-  }, {
-    key: "insertDot",
-    value: function insertDot(i) {
-      var dot = "\n        <div data-index=\"".concat(i, "\" class=\"dot\"></div>\n      ");
+  }
 
-      this._dotContainer.insertAdjacentHTML('beforeend', dot);
+  populateModal() {
+    document.querySelector('.modal-wrapper').classList.add('active');
+    const modal = document.querySelector('.modal');
+    const html = `
+    <i class="far fa-times-circle"></i>
+    <h4 class="header">${this._drinkInfo.name}</h4>
+    <div class="img-box">
+      <img src="${this._drinkInfo.img}" alt="${this._drinkInfo.name} Thumbnail">
+    </div>
+    <p class="instructions">${this._drinkInfo.instructions}</p>`;
+    modal.insertAdjacentHTML('beforeend', html);
+  }
+
+  closeModal(e) {
+    if (e.target.classList.contains('overlay') || e.target.closest('.fa-times-circle')) {
+      document.querySelector('.modal').innerHTML = '';
+      document.querySelector('.modal-wrapper').classList.remove('active');
     }
-  }, {
-    key: "renderHTML",
-    value: function renderHTML(html) {
-      this._parentContainer.insertAdjacentHTML('beforeend', html);
-    }
-  }, {
-    key: "handleCarousel",
-    value: function handleCarousel() {
-      var _this2 = this;
+  }
 
-      var imgs = document.querySelectorAll('.img-cocktail');
-      var titles = document.querySelectorAll('.carousel-title-wrapper');
-      imgs.forEach(function (img, i) {
-        img.style.transform = "translateX(".concat(100 * (i - _this2._currentImg), "%)");
-      });
-      titles.forEach(function (title, i) {
-        title.style.transform = "translateX(".concat(-200 * (i - _this2._currentImg), "%)");
-      });
-    }
-  }, {
-    key: "handleCarouselClick",
-    value: function handleCarouselClick(e) {
-      if (e.target.closest('button')) {
-        var value = Number(e.target.closest('button').dataset.value);
-        if (this._currentImg <= 0 && value === -1 || this._currentImg >= this._data.allImgs.length - 1 && value === 1) return console.log("Can't Do that!");
-        this.scrollCarousel(value);
-      } else if (e.target.closest('.dot')) {
-        var dotIndex = e.target.dataset.index;
-        this.scrollCarouselTo(dotIndex);
-      } else if (e.target.closest('.carousel-title-wrapper')) {
-        var id = e.target.closest('.carousel-title-wrapper').dataset.drinkId; // console.log(id);
+  addEventHandlers() {
+    const btns = document.querySelectorAll('.page-btn');
+    btns.forEach(btn => {
+      btn.addEventListener('click', this.changePage.bind(this));
+    });
+  }
 
-        this.toggleModal(id);
-      } else {
-        return;
-      }
-    }
-  }, {
-    key: "scrollCarousel",
-    value: function scrollCarousel(value) {
-      var _this3 = this;
-
-      this._currentImg += value;
-      console.log(this._currentImg);
-      var imgs = document.querySelectorAll('.img-cocktail');
-      var titles = document.querySelectorAll('.carousel-title-wrapper');
-      imgs.forEach(function (img, i) {
-        img.style.transform = "translateX(".concat(100 * (i - _this3._currentImg), "%)");
-      });
-      titles.forEach(function (title, i) {
-        title.style.transform = "translateX(".concat(-200 * (i - _this3._currentImg), "%)");
-      });
-      this.setActiveDot();
-    }
-  }, {
-    key: "scrollCarouselTo",
-    value: function scrollCarouselTo(i) {
-      var _this4 = this;
-
-      var imgs = document.querySelectorAll('.img-cocktail');
-      var titles = document.querySelectorAll('.carousel-title-wrapper');
-      this._currentImg = Number(i);
-      imgs.forEach(function (img, i) {
-        img.style.transform = "translateX(".concat(100 * (i - _this4._currentImg), "%)");
-      });
-      titles.forEach(function (title, i) {
-        title.style.transform = "translateX(".concat(-200 * (i - _this4._currentImg), "%)");
-      });
-      this.setActiveDot();
-    }
-  }, {
-    key: "setActiveDot",
-    value: function setActiveDot() {
-      var dots = document.querySelectorAll('.dot');
-      var index = Number(this._currentImg);
-      dots.forEach(function (dot, i) {
-        dot.classList.remove('active');
-        if (index === i) dot.classList.add('active');
-      });
-    } // I know this is not supposed to be in the View... :(
-
-  }, {
-    key: "toggleModal",
-    value: function () {
-      var _toggleModal = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(id) {
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
-                return this.fetchDrinkInfo(id);
-
-              case 2:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
-
-      function toggleModal(_x2) {
-        return _toggleModal.apply(this, arguments);
-      }
-
-      return toggleModal;
-    }()
-  }, {
-    key: "fetchDrinkInfo",
-    value: function () {
-      var _fetchDrinkInfo = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(id) {
-        var url, res, _yield$res$json, drinks, data, drink;
-
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                url = "https://www.thecocktaildb.com/api/json/v2/".concat(_config.API_KEY, "/lookup.php?i=");
-                _context3.prev = 1;
-                console.log("url: ".concat(url).concat(id));
-                _context3.next = 5;
-                return fetch("".concat(url).concat(id));
-
-              case 5:
-                res = _context3.sent;
-                _context3.next = 8;
-                return res.json();
-
-              case 8:
-                _yield$res$json = _context3.sent;
-                drinks = _yield$res$json.drinks;
-                data = drinks[0];
-                drink = {
-                  id: id,
-                  name: data.strDrink,
-                  img: data.strDrinkThumb,
-                  instructions: data.strInstructions
-                };
-                console.log(drink);
-                this._drinkInfo = drink;
-                this.populateModal();
-                _context3.next = 20;
-                break;
-
-              case 17:
-                _context3.prev = 17;
-                _context3.t0 = _context3["catch"](1);
-                console.log('Could not find that drink');
-
-              case 20:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, this, [[1, 17]]);
-      }));
-
-      function fetchDrinkInfo(_x3) {
-        return _fetchDrinkInfo.apply(this, arguments);
-      }
-
-      return fetchDrinkInfo;
-    }()
-  }, {
-    key: "populateModal",
-    value: function populateModal() {
-      document.querySelector('.modal-wrapper').classList.add('active');
-      var modal = document.querySelector('.modal');
-      var html = "\n    <i class=\"far fa-times-circle\"></i>\n    <h4 class=\"header\">".concat(this._drinkInfo.name, "</h4>\n    <div class=\"img-box\">\n      <img src=\"").concat(this._drinkInfo.img, "\" alt=\"").concat(this._drinkInfo.name, " Thumbnail\">\n    </div>\n    <p class=\"instructions\">").concat(this._drinkInfo.instructions, "</p>");
-      modal.insertAdjacentHTML('beforeend', html);
-    }
-  }, {
-    key: "closeModal",
-    value: function closeModal(e) {
-      if (e.target.classList.contains('overlay') || e.target.closest('.fa-times-circle')) {
-        document.querySelector('.modal').innerHTML = '';
-        document.querySelector('.modal-wrapper').classList.remove('active');
-      }
-    }
-  }, {
-    key: "addEventHandlers",
-    value: function addEventHandlers() {
-      var _this5 = this;
-
-      var btns = document.querySelectorAll('.page-btn');
-      btns.forEach(function (btn) {
-        btn.addEventListener('click', _this5.changePage.bind(_this5));
-      });
-    }
-  }]);
-
-  return View;
-}();
+}
 
 var _default = new View();
 
@@ -427,22 +323,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var Data = /*#__PURE__*/function () {
-  function Data() {
-    _classCallCheck(this, Data);
-
+class Data {
+  constructor() {
     _defineProperty(this, "state", {
       allImgs: null,
       index: 1,
@@ -450,77 +334,34 @@ var Data = /*#__PURE__*/function () {
     });
   }
 
-  _createClass(Data, [{
-    key: "loadResults",
-    value: function () {
-      var _loadResults = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(url) {
-        var res, _yield$res$json, drinks;
+  async loadResults(url) {
+    console.log(url);
 
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                console.log(url);
-                _context.prev = 1;
-                _context.next = 4;
-                return fetch(url);
+    try {
+      const res = await fetch(url);
+      if (!res.ok) return new Error('Oops! Could not find your drinks.');
+      const {
+        drinks
+      } = await res.json();
+      this.state.allImgs = drinks;
+      this.state.totalImgs = Math.ceil(this.state.allImgs.length);
+      console.log(`Total Images: ${this.state.totalImgs}`);
+    } catch (e) {
+      console.error(`Oops! ${e.message}`);
+    }
+  } // pagination() {
+  //   const trimStart = (this.state.page - 1) * RES_PER_PAGE;
+  //   const trimEnd = trimStart + RES_PER_PAGE;
+  //   const results = this.state.allData.slice(trimStart, trimEnd);
+  //   return results;
+  // }
+  // changePage(val) {
+  //   this.state.page += val;
+  //   view.renderProducts(this.getProducts, API_URL);
+  // }
 
-              case 4:
-                res = _context.sent;
 
-                if (res.ok) {
-                  _context.next = 7;
-                  break;
-                }
-
-                return _context.abrupt("return", new Error('Oops! Could not find your drinks.'));
-
-              case 7:
-                _context.next = 9;
-                return res.json();
-
-              case 9:
-                _yield$res$json = _context.sent;
-                drinks = _yield$res$json.drinks;
-                this.state.allImgs = drinks;
-                this.state.totalImgs = Math.ceil(this.state.allImgs.length);
-                console.log("Total Images: ".concat(this.state.totalImgs));
-                _context.next = 19;
-                break;
-
-              case 16:
-                _context.prev = 16;
-                _context.t0 = _context["catch"](1);
-                console.error("Oops! ".concat(_context.t0.message));
-
-              case 19:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this, [[1, 16]]);
-      }));
-
-      function loadResults(_x) {
-        return _loadResults.apply(this, arguments);
-      }
-
-      return loadResults;
-    }() // pagination() {
-    //   const trimStart = (this.state.page - 1) * RES_PER_PAGE;
-    //   const trimEnd = trimStart + RES_PER_PAGE;
-    //   const results = this.state.allData.slice(trimStart, trimEnd);
-    //   return results;
-    // }
-    // changePage(val) {
-    //   this.state.page += val;
-    //   view.renderProducts(this.getProducts, API_URL);
-    // }
-
-  }]);
-
-  return Data;
-}();
+}
 
 var _default = new Data();
 
@@ -536,35 +377,15 @@ var _model = _interopRequireDefault(require("./model.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 // CONTROLLER
-document.addEventListener('DOMContentLoaded', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-  return regeneratorRuntime.wrap(function _callee$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.next = 2;
-          return _model.default.loadResults(_config.API_URL);
+document.addEventListener('DOMContentLoaded', async () => {
+  // GET INITIAL PRODUCTS
+  await _model.default.loadResults(_config.API_URL);
+  await _view.default.renderResults(_model.default.state); // EVENT LISTENERS
 
-        case 2:
-          _context.next = 4;
-          return _view.default.renderResults(_model.default.state);
-
-        case 4:
-          // EVENT LISTENERS
-          document.querySelector('.img-carousel-container').addEventListener('click', _view.default.handleCarouselClick.bind(_view.default));
-          document.querySelector('.modal-wrapper').addEventListener('click', _view.default.closeModal);
-
-        case 6:
-        case "end":
-          return _context.stop();
-      }
-    }
-  }, _callee);
-})));
+  document.querySelector('.img-carousel-container').addEventListener('click', _view.default.handleCarouselClick.bind(_view.default));
+  document.querySelector('.modal-wrapper').addEventListener('click', _view.default.closeModal);
+});
 },{"./config.js":"js/carousel/config.js","./view.js":"js/carousel/view.js","./model.js":"js/carousel/model.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -593,7 +414,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63503" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55513" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
