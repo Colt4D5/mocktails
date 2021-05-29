@@ -1,6 +1,10 @@
 # Cocktail API Exercise
 ###### By Colton Arthur Allen
 
+## View Live site: [https://thetipsymixer.netlify.app/](https://thetipsymixer.netlify.app/)
+
+## Github: [Source Code](https://github.com/Colt4D5/mocktails.git)
+
 ## Day 1
 
 - Set up PHP Routing System
