@@ -4,11 +4,14 @@ class View {
   _parentContainer = document.querySelector('#drinks-container');
   _data;
   _drinkInfo;
+  _query;
 
   renderResults(data) {
     this._data = data;
     // console.log(this._data);
-    const paginatedResults = this.paginateResults(this._data);
+    const paginatedResults = this.paginateResults();
+
+    document.querySelector('#search-bar').value = '';
 
     this.clearHTML();
     
@@ -17,15 +20,22 @@ class View {
     this.renderPageBtns();
 
     this.addEventHandlers();
-    return;
   }
 
   paginateResults(data) {
-    const trimStart = (data.page - 1) * RES_PER_PAGE;
-    const trimEnd = trimStart + RES_PER_PAGE;
-    const results = data.allData.slice(trimStart, trimEnd);
-
-    return results;
+    if (!data) {
+      const trimStart = (this._data.page - 1) * RES_PER_PAGE;
+      const trimEnd = trimStart + RES_PER_PAGE;
+      const results = this._data.allData.slice(trimStart, trimEnd);
+  
+      return results;
+    } else {
+      const trimStart = (this._data.page - 1) * RES_PER_PAGE;
+      const trimEnd = trimStart + RES_PER_PAGE;
+      const results = data.slice(trimStart, trimEnd);
+  
+      return results;
+    }
   }
 
   clearHTML() {
@@ -49,7 +59,17 @@ class View {
   }
 
   renderPageBtns() {
+    this._data.page = Math.ceil(this._data.page);
+
     let html;
+
+    // if on last page of multiple pages
+    if (+this._data.totalPages === +this._data.page) {
+      html = `
+        <button data-turn-page="-1" type="button" class="page-btn"><i class="fas fa-arrow-left"></i> Page ${+this._data.page - 1}</button>
+        <span>Page ${this._data.page} of ${this._data.totalPages}</span>
+      `
+    }
     
     // if on 1st with no others
     if (+this._data.totalPages === 1) {
@@ -62,26 +82,19 @@ class View {
     if (+this._data.totalPages > 1 && +this._data.page === 1) {
       html = `
         <span>Page ${this._data.page} of ${this._data.totalPages}</span>
-        <button data-turn-page="1" type="button" class="page-btn">Page ${+this._data.page + 1} ></button>
+        <button data-turn-page="1" type="button" class="page-btn">Page ${+this._data.page + 1} <i class="fas fa-arrow-right"></i></button>
       `
     }
 
     // has pages before and after
     if (+this._data.totalPages > 1 && +this._data.page > 1 && +this._data.page < +this._data.totalPages) {
       html = `
-        <button data-turn-page="-1" type="button" class="page-btn">< Page ${+this._data.page - 1}</button>
+        <button data-turn-page="-1" type="button" class="page-btn"><i class="fas fa-arrow-left"></i> Page ${+this._data.page - 1}</button>
         <span>Page ${this._data.page} of ${this._data.totalPages}</span>
-        <button data-turn-page="1" type="button" class="page-btn">Page ${+this._data.page + 1} ></button>
+        <button data-turn-page="1" type="button" class="page-btn">Page ${+this._data.page + 1} <i class="fas fa-arrow-right"></i></button>
       `
     }
 
-    // if on last page of multiple pages
-    if (+this._data.totalPages === +this._data.page) {
-      html = `
-        <button data-turn-page="-1" type="button" class="page-btn">< Page ${+this._data.page - 1}</button>
-        <span>Page ${this._data.page} of ${this._data.totalPages}</span>
-      `
-    }
     document.querySelector('.page-btn-container').innerHTML = html;
   }
 
@@ -153,6 +166,29 @@ class View {
           document.querySelector('.modal').innerHTML = '';
           document.querySelector('.modal-wrapper').classList.remove('active');
         }
+      }
+
+      searchQuery(e) {
+        this._query = e.target.value;
+
+        console.log(this._data);
+
+        const searchItems = this._data.allData.filter(drink => drink.strDrink.toLowerCase().includes(this._query.toLowerCase()));
+        
+        this._data.totalPages = Math.ceil(searchItems.length / RES_PER_PAGE);
+        this._page = 1;
+
+        const paginatedResults = this.paginateResults(searchItems);
+        console.log(paginatedResults);
+
+
+        this.clearHTML();
+        
+        this.generateMarkup(paginatedResults);
+
+        this.renderPageBtns();
+
+        this.addEventHandlers();
       }
 
 }

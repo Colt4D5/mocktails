@@ -38,4 +38,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 	
 	document.querySelector('#drinks-container').addEventListener('click', view.handleCarouselClick.bind(view));
 	document.querySelector('.modal-wrapper').addEventListener('click', view.closeModal);
+	document.querySelector('#search-bar').addEventListener('input', view.searchQuery.bind(view));
 });
