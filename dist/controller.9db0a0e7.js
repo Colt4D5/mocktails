@@ -152,24 +152,35 @@ class View {
     _defineProperty(this, "_data", void 0);
 
     _defineProperty(this, "_drinkInfo", void 0);
+
+    _defineProperty(this, "_query", void 0);
   }
 
   renderResults(data) {
     this._data = data; // console.log(this._data);
 
-    const paginatedResults = this.paginateResults(this._data);
+    const paginatedResults = this.paginateResults();
+    document.querySelector('#search-bar').value = '';
     this.clearHTML();
     this.generateMarkup(paginatedResults);
     this.renderPageBtns();
     this.addEventHandlers();
-    return;
   }
 
   paginateResults(data) {
-    const trimStart = (data.page - 1) * _config.RES_PER_PAGE;
-    const trimEnd = trimStart + _config.RES_PER_PAGE;
-    const results = data.allData.slice(trimStart, trimEnd);
-    return results;
+    if (!data) {
+      const trimStart = (this._data.page - 1) * _config.RES_PER_PAGE;
+      const trimEnd = trimStart + _config.RES_PER_PAGE;
+
+      const results = this._data.allData.slice(trimStart, trimEnd);
+
+      return results;
+    } else {
+      const trimStart = (this._data.page - 1) * _config.RES_PER_PAGE;
+      const trimEnd = trimStart + _config.RES_PER_PAGE;
+      const results = data.slice(trimStart, trimEnd);
+      return results;
+    }
   }
 
   clearHTML() {
@@ -193,7 +204,16 @@ class View {
   }
 
   renderPageBtns() {
-    let html; // if on 1st with no others
+    this._data.page = Math.ceil(this._data.page);
+    let html; // if on last page of multiple pages
+
+    if (+this._data.totalPages === +this._data.page) {
+      html = `
+        <button data-turn-page="-1" type="button" class="page-btn"><i class="fas fa-arrow-left"></i> Page ${+this._data.page - 1}</button>
+        <span>Page ${this._data.page} of ${this._data.totalPages}</span>
+      `;
+    } // if on 1st with no others
+
 
     if (+this._data.totalPages === 1) {
       html = `
@@ -205,24 +225,16 @@ class View {
     if (+this._data.totalPages > 1 && +this._data.page === 1) {
       html = `
         <span>Page ${this._data.page} of ${this._data.totalPages}</span>
-        <button data-turn-page="1" type="button" class="page-btn">Page ${+this._data.page + 1} ></button>
+        <button data-turn-page="1" type="button" class="page-btn">Page ${+this._data.page + 1} <i class="fas fa-arrow-right"></i></button>
       `;
     } // has pages before and after
 
 
     if (+this._data.totalPages > 1 && +this._data.page > 1 && +this._data.page < +this._data.totalPages) {
       html = `
-        <button data-turn-page="-1" type="button" class="page-btn">< Page ${+this._data.page - 1}</button>
+        <button data-turn-page="-1" type="button" class="page-btn"><i class="fas fa-arrow-left"></i> Page ${+this._data.page - 1}</button>
         <span>Page ${this._data.page} of ${this._data.totalPages}</span>
-        <button data-turn-page="1" type="button" class="page-btn">Page ${+this._data.page + 1} ></button>
-      `;
-    } // if on last page of multiple pages
-
-
-    if (+this._data.totalPages === +this._data.page) {
-      html = `
-        <button data-turn-page="-1" type="button" class="page-btn">< Page ${+this._data.page - 1}</button>
-        <span>Page ${this._data.page} of ${this._data.totalPages}</span>
+        <button data-turn-page="1" type="button" class="page-btn">Page ${+this._data.page + 1} <i class="fas fa-arrow-right"></i></button>
       `;
     }
 
@@ -298,6 +310,22 @@ class View {
       document.querySelector('.modal').innerHTML = '';
       document.querySelector('.modal-wrapper').classList.remove('active');
     }
+  }
+
+  searchQuery(e) {
+    this._query = e.target.value;
+    console.log(this._data);
+
+    const searchItems = this._data.allData.filter(drink => drink.strDrink.toLowerCase().includes(this._query.toLowerCase()));
+
+    this._data.totalPages = Math.ceil(searchItems.length / _config.RES_PER_PAGE);
+    this._page = 1;
+    const paginatedResults = this.paginateResults(searchItems);
+    console.log(paginatedResults);
+    this.clearHTML();
+    this.generateMarkup(paginatedResults);
+    this.renderPageBtns();
+    this.addEventHandlers();
   }
 
 }
@@ -395,6 +423,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
   document.querySelector('#drinks-container').addEventListener('click', _view.default.handleCarouselClick.bind(_view.default));
   document.querySelector('.modal-wrapper').addEventListener('click', _view.default.closeModal);
+  document.querySelector('#search-bar').addEventListener('input', _view.default.searchQuery.bind(_view.default));
 });
 },{"./config.js":"js/drinks/config.js","./view.js":"js/drinks/view.js","./model.js":"js/drinks/model.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -424,7 +453,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55839" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52871" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -61,7 +61,7 @@
       </div>
       <div class="search-container">
         <h3>Find your flavor here:</h3> <input type="text" name="search" id="search-bar" placeholder="Search...">
-      </div class="search-container">
+      </div>
     </div>
     <div id="drinks-container">
       <!-- DRINK CARDS GO HERE -->

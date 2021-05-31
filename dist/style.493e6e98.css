@@ -338,6 +338,20 @@ header .menu-btn-container ul .mobile-scroll::before {
   background-color: rgba(255, 255, 255, 0.7);
 }
 
+.drink-wrapper .search-container {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  margin: 1.5rem;
+}
+.drink-wrapper .search-container #search-bar {
+  border-radius: 25px;
+  padding: 8px;
+  top: 0;
+  left: 0;
+  border: none;
+  box-shadow: -8px 6px 0 #f368a6;
+}
 .drink-wrapper #drinks-container {
   display: flex;
   flex-wrap: wrap;
@@ -386,10 +400,31 @@ header .menu-btn-container ul .mobile-scroll::before {
 }
 .drink-wrapper .page-btn-container {
   display: flex;
+  align-items: center;
   justify-content: center;
+  margin-top: 3rem;
 }
 .drink-wrapper .page-btn-container .page-btn {
+  padding: 8px 12px;
+  border-radius: 25px;
+  background-color: #111;
+  position: relative;
+  top: 0;
+  left: 0;
+  font-size: 2;
+  font-weight: 700;
+  border: none;
+  color: #fff;
+  box-shadow: -6px 4px 0 #f368a6;
   margin: 0 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.drink-wrapper .page-btn-container .page-btn:hover {
+  background-color: #222;
+  top: 4px;
+  left: -6px;
+  box-shadow: 0 0 0 #f368a6;
 }
 .drink-wrapper .selector-wrapper {
   margin: 2rem 0;
@@ -604,7 +639,7 @@ footer .copyright {
   #hero .overlay {
     top: 0;
     left: 0;
-    width: 300px !important;
+    width: 302px !important;
     height: 200px !important;
     z-index: 10;
     background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0), #111111) !important;
@@ -650,7 +685,7 @@ footer .copyright {
     height: 350px !important;
   }
   #hero .overlay {
-    width: 525px !important;
+    width: 528px !important;
     height: 350px !important;
   }
   #hero .logo-link {
